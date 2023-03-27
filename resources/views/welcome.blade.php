@@ -5,7 +5,7 @@ use Laudis\Neo4j\ClientBuilder;
 $beginsAt = microtime(true);
 
 $client = ClientBuilder::create()
-->withDriver('bolt', 'bolt://neo4j:12345678@database') // creates a bolt driver
+->withDriver('bolt', 'bolt://'.env('DB_USERNAME').':'.env('DB_PASSWORD').'@'.env('DB_HOST')) // creates a bolt driver
 ->withDefaultDriver('bolt')
 ->build();
 

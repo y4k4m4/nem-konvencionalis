@@ -1,5 +1,5 @@
 {
-    "name": "laravel/laravel",
+    "name": "nka/flights",
     "type": "project",
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
@@ -13,6 +13,7 @@
         "laudis/neo4j-php-client": "^3.0"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.13",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
