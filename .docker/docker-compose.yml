@@ -16,6 +16,7 @@ services:
     image: neo4j:5.6
     ports:
       - 7474:7474 # Web interface
+      - 7687:7687 # Bolt connection for web interface
     container_name: nka-database
     volumes:
       - ./database/data:/data

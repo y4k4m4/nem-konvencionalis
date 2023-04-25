@@ -1,22 +1,22 @@
-<?php
+@extends('app')
 
-use Laudis\Neo4j\ClientBuilder;
+@section('title', 'Főoldal')
 
-$beginsAt = microtime(true);
-
-$client = ClientBuilder::create()
-->withDriver('bolt', 'bolt://'.env('DB_USERNAME').':'.env('DB_PASSWORD').'@'.env('DB_HOST')) // creates a bolt driver
-->withDefaultDriver('bolt')
-->build();
-
-use Laudis\Neo4j\Contracts\TransactionInterface;
-
-$result = $client->writeTransaction(static function (TransactionInterface $tsx) {
-$result = $tsx->run('MATCH (n) RETURN n');
-/** @var \Laudis\Neo4j\Types\Node $node */
-$node = $result->first()->get('n');
-return $node->getProperty('name');
-});
-
-var_dump($result);
-echo "Time: ".(microtime(true) - $beginsAt);
+@section('content')
+<h1>Járatok</h1>
+<table>
+    <tr>
+        <th>Nap</th>
+        <th>Járatszám</th>
+        <th>Ülések száma</th>
+    </tr>
+    @foreach($client->run("MATCH(f:FLIGHT) RETURN f LIMIT 20")->getResults() as $flight)
+        <?php /** @var \Laudis\Neo4j\Types\CypherMap $flight */ ?>
+    <tr>
+        <td>{{ $flight['f']->getProperty('day') }}</td>
+        <td>{{ $flight['f']->getProperty('flightno') }}</td>
+        <td>{{ $flight['f']->getProperty('seats') }}</td>
+    </tr>
+    @endforeach
+</table>
+@endsection

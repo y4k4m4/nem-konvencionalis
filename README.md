@@ -21,6 +21,15 @@ Web interfész az adatbázishoz: `http://localhost:7474/`
 * Username: neo4j
 * Password: 12345678
 
+### Adatbázis import
+Dockerben:
+* A dumpot másoljuk a .docker/database/data mappába
+* A projektet megállitva:
+```bash
+docker compose run database bash
+bin/neo4j-admin database load --overwrite-destination=true --from-path=data neo4j
+```
+
 ## Kód felépitése
 * A HTML/CSS/JS az app/resources mappáiban található (egyelőre minden a welcome.blade.php-ban van)
 * A controller kód az app/Http/Controllers mappában
