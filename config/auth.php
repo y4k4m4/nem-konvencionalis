@@ -61,7 +61,7 @@ return [
 
     'providers' => [
         'users' => [
-            'driver' => 'eloquent',
+            'driver' => 'neo4j',
             'model' => App\Models\User::class,
         ],
 

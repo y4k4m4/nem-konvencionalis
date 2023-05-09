@@ -17,3 +17,14 @@ use Laudis\Neo4j\Contracts\ClientInterface;
 Route::get('/', function (ClientInterface $client) {
     return view('welcome', ['client' => $client]);
 });
+
+Route::get('/login', function (ClientInterface $client) {
+    return view('login', ['client' => $client]);
+});
+
+Route::get('/login/doit', "App\\Http\\Controllers\\LoginController@login");
+
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+});
