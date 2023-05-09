@@ -10,6 +10,15 @@
 </head>
 
 <body>
+@if(Auth::check())
+    <p>Bejelentkezve, mint {{ Auth::user()->name }} - <a href="/logout">Kijelentkezés</a></p>
+@else
+    <a href="/login">Bejelentkezés</a>
+@endif
+<div>
+    <a href="/">Főoldal</a>
+    <a href="/search">Keresés</a>
+</div>
 @yield('content')
 </body>
 

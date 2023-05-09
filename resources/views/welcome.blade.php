@@ -3,11 +3,6 @@
 @section('title', 'Főoldal')
 
 @section('content')
-@if(Auth::check())
-    <p>Bejelentkezve, mint {{ Auth::user()->name }} - <a href="/logout">Kijelentkezés</a></p>
-@else
-<a href="/login">Bejelentkezés</a>
-@endif
 <h1>Járatok</h1>
 <table>
     <tr>

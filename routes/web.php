@@ -28,3 +28,5 @@ Route::get('/logout', function () {
     Auth::logout();
     return redirect('/');
 });
+
+Route::get('/search', "App\\Http\\Controllers\\FlightController@search");
