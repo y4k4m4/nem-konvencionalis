@@ -19,4 +19,19 @@ class FlightController extends Controller {
         }
         return view('search', $data);
     }
+
+    public function reserve(Request $request) {
+        if(!\Auth::check()) {
+            return redirect('/login');
+        }
+        $from = $request->get('from');
+        $to = $request->get('to');
+        $flight = $request->get('dist') === 'true'
+            ? Flight::getShortestDistanceFlight($from, $to) : Flight::getShortestFlight($from, $to);
+        $flight->reserve(\Auth::user());
+        // Újra lekérdezzük, hogy csökkentve legyen a helyek száma
+        $data['flight'] = $request->get('dist') === 'true'
+            ? Flight::getShortestDistanceFlight($from, $to) : Flight::getShortestFlight($from, $to);
+        return view('reservation', $data);
+    }
 }

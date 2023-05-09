@@ -30,3 +30,4 @@ Route::get('/logout', function () {
 });
 
 Route::get('/search', "App\\Http\\Controllers\\FlightController@search");
+Route::middleware('web')->get('/reserve', "App\\Http\\Controllers\\FlightController@reserve");

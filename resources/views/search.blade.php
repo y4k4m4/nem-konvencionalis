@@ -40,7 +40,7 @@
         <td>{{ $shortest->arrivalTime }}</td>
         <td>{{ $shortest->distance }}</td>
         <td>{{ $shortest->seats }}</td>
-        <td><a href="/reserve">Foglalás</a></td>
+        <td><a href="/reserve?from={{$shortest->from}}&to={{$shortest->to}}&dist=false">Foglalás</a></td>
     </tr>
     <tr>
         <td>Távolság figyelembevételével:</td>
@@ -48,7 +48,7 @@
         <td>{{ $shortestDistance->arrivalTime }}</td>
         <td>{{ $shortestDistance->distance }}</td>
         <td>{{ $shortestDistance->seats }}</td>
-        <td><a href="/reserve">Foglalás</a></td>
+        <td><a href="/reserve?from={{$shortest->from}}&to={{$shortest->to}}&dist=true">Foglalás</a></td>
     </tr>
 </table>
 @endif

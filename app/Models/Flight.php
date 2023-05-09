@@ -15,6 +15,7 @@ class Flight {
     public string $arrivalTime;
     public int $weight;
     public int $seats;
+    public array $flights;
     public function __construct() {
     }
 
@@ -79,9 +80,27 @@ class Flight {
             /** @var Node $flightNode */
             if ($flightNode->getLabels()->hasValue('FLIGHT')) {
                 $seats = min($flightNode->getProperty('seats'), $seats);
+                $flight->flights[] = $flightNode->getProperty('flightno');
             }
         }
         $flight->seats = $seats;
         return $flight;
+    }
+
+    public function reserve(User $user) {
+        $client = \App::make(ClientInterface::class);
+        foreach ($this->flights as $flight) {
+            $client->run("
+                MATCH (f:FLIGHT {flightno: '$flight'})
+                MATCH (u:USER {name: '$user->name'})
+                CREATE
+                (t:TICKET{}),
+                (u)-[:RESERVE]->(t)-[:TICKET_TO]->(f)
+            ");
+            $client->run("
+                MATCH (n {flightno: '$flight'})
+                SET n.seats = n.seats-1
+            ");
+        }
     }
 }
